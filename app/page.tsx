@@ -99,18 +99,19 @@ function InterviewCard() {
       initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+      className="w-full"
     >
       {/* Float loop — slow 3px drift up and down */}
       <motion.div
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-        className="w-80 rounded-2xl border border-[#e8e2d9]/80 bg-white/70 shadow-[0_12px_48px_rgba(168,138,100,0.18)] backdrop-blur-md overflow-hidden"
+        className="w-full max-w-sm mx-auto rounded-2xl border border-[#e8e2d9]/80 bg-white/70 shadow-[0_12px_48px_rgba(168,138,100,0.18)] backdrop-blur-md overflow-hidden"
       >
         {/* Mac window chrome */}
         <div className="flex items-center gap-1.5 px-4 py-2.5 bg-[#f0ebe3]/90 border-b border-[#e8e2d9]">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f57] shadow-sm" />
-          <span className="w-3 h-3 rounded-full bg-[#febc2e] shadow-sm" />
-          <span className="w-3 h-3 rounded-full bg-[#28c840] shadow-sm" />
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#ff5f57] shadow-sm" />
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#febc2e] shadow-sm" />
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#28c840] shadow-sm" />
           <span className="ml-3 text-[10px] text-[#9a9490] font-mono">EdgeScore — Session</span>
         </div>
         <div className="p-6 space-y-5">
@@ -198,8 +199,8 @@ function Hero() {
   return (
     <section className="relative overflow-hidden">
       <FloatingShapes />
-      {/* Two-column grid on large screens; single column (card hidden) on mobile */}
-      <div className="relative max-w-6xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-14 items-center">
+      {/* Two-column grid on large screens; single column on mobile */}
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 lg:py-24 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
         {/* Left — text content */}
         <div className="space-y-7 text-center lg:text-left">
@@ -217,7 +218,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight text-[#1f1f1f]"
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-[#1f1f1f]"
           >
             Practice Technical Interviews
             <br />
@@ -228,7 +229,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="text-xl text-[#6b6b6b] leading-relaxed max-w-xl"
+            className="text-lg sm:text-xl text-[#6b6b6b] leading-relaxed max-w-xl mx-auto lg:mx-0"
           >
             Record answers, get feedback, and track improvement — so every practice rep counts.
           </motion.p>
@@ -265,8 +266,8 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — floating interview card (desktop only) */}
-        <div className="hidden lg:flex items-center justify-center">
+        {/* Right — floating interview card */}
+        <div className="flex items-center justify-center">
           <InterviewCard />
         </div>
 
@@ -317,7 +318,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="max-w-6xl mx-auto px-6 py-20 space-y-14">
+    <section id="how-it-works" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 space-y-14">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -415,7 +416,7 @@ const FEATURES = [
 
 function Features() {
   return (
-    <section id="features" className="max-w-6xl mx-auto px-6 py-20 space-y-14">
+    <section id="features" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 space-y-14">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -467,7 +468,7 @@ function Features() {
 // ─── Demo preview ─────────────────────────────────────────────────────────────
 function DemoPreview() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-20 space-y-14">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 space-y-14">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -491,16 +492,16 @@ function DemoPreview() {
       >
         {/* Browser chrome */}
         <div className="bg-[#f0ebe3]/80 border-b border-[#e8e2d9] px-5 py-3 flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f57] shadow-sm" />
-          <span className="w-3 h-3 rounded-full bg-[#febc2e] shadow-sm" />
-          <span className="w-3 h-3 rounded-full bg-[#28c840] shadow-sm" />
-          <div className="ml-4 flex-1 max-w-xs rounded-md bg-white/60 border border-[#e8e2d9] px-3 py-1">
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#ff5f57] shadow-sm" />
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#febc2e] shadow-sm" />
+          <span className="w-3 h-3 shrink-0 rounded-full bg-[#28c840] shadow-sm" />
+          <div className="ml-4 hidden sm:flex flex-1 max-w-xs rounded-md bg-white/60 border border-[#e8e2d9] px-3 py-1">
             <span className="text-xs text-[#9a9490] font-mono">edgescore.app/dashboard/session</span>
           </div>
         </div>
 
         {/* Session content */}
-        <div className="p-8 space-y-6">
+        <div className="p-4 sm:p-8 space-y-6">
           <div className="flex items-center gap-3">
             <Badge className="bg-[#e8d9c5] text-[#1f1f1f] border-0">behavioral</Badge>
             <span className="text-xs text-[#9a9490]">Feb 28, 2026</span>
@@ -552,13 +553,13 @@ function WaitlistSection() {
   }
 
   return (
-    <section id="waitlist" className="max-w-6xl mx-auto px-6 py-24">
+    <section id="waitlist" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="max-w-xl mx-auto bg-[#faf7f2]/70 backdrop-blur-sm border border-[#e8e2d9]/80 rounded-2xl shadow-sm px-8 py-12 text-center space-y-8"
+        className="max-w-xl mx-auto bg-[#faf7f2]/70 backdrop-blur-sm border border-[#e8e2d9]/80 rounded-2xl shadow-sm px-5 sm:px-8 py-10 sm:py-12 text-center space-y-8"
       >
         {/* Eyebrow */}
         <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#a08060]">
