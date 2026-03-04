@@ -7,9 +7,6 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/db";
 import { sessions } from "@/db/schema";
 
-// Instantiated once per module — the SDK reads OPENAI_API_KEY from env automatically
-const openai = new OpenAI();
-
 export async function POST(req: NextRequest) {
   const authSession = await getServerSession(authOptions);
   if (!authSession) {
@@ -57,6 +54,8 @@ export async function POST(req: NextRequest) {
   // Checkpoint 2: transcribe — best-effort, errors are caught and swallowed.
   let transcript: string | null = null;
   try {
+    // Instantiate lazily so missing key at build time doesn't crash the build
+    const openai = new OpenAI();
     // Pass a File object built from the uploaded buffer
     const audioFile = new File([buffer], filename, { type: "audio/webm" });
 
