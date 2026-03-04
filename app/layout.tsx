@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import GithubButton from "@/components/GithubButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EdgeScore — AI Interview Practice",
+  title: "EdgeScore — AI Interview Scoring",
   description:
-    "Practice technical interviews with AI feedback. Record your answers, get transcripts, and improve with structured coaching.",
+    "Record your interview answers and get an instant EdgeScore. AI-powered transcription, structured feedback, and a real score — so every practice rep counts.",
+  icons: { icon: "/icon.svg" },
 };
 
 export default function RootLayout({
@@ -29,6 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <GithubButton />
       </body>
     </html>
   );

@@ -55,7 +55,7 @@ export default async function NewSessionPage() {
                 />
               </div>
 
-              <Button type="submit" variant="warm" className="self-start">
+              <Button type="submit" variant="warm" className="self-start hover:-translate-y-0.5 hover:shadow-md transition-all duration-150">
                 Create Session
               </Button>
             </form>

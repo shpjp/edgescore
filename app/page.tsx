@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
@@ -51,8 +50,8 @@ function Navbar() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-[#e8e2d9] bg-[#faf7f2]/85 backdrop-blur-lg shadow-sm"
-          : "border-b border-transparent bg-[#faf7f2]/40 backdrop-blur-sm"
+          ? "border-b border-[#e8e2d9] bg-[#faf7f2]/85 backdrop-blur-sm shadow-sm"
+          : "border-b border-transparent bg-[#faf7f2]/40"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -105,19 +104,27 @@ function InterviewCard() {
       <motion.div
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-        className="w-80 rounded-2xl border border-[#e8e2d9]/80 bg-white/70 p-6 shadow-[0_12px_48px_rgba(168,138,100,0.18)] backdrop-blur-md space-y-5"
+        className="w-80 rounded-2xl border border-[#e8e2d9]/80 bg-white/70 shadow-[0_12px_48px_rgba(168,138,100,0.18)] backdrop-blur-md overflow-hidden"
       >
+        {/* Mac window chrome */}
+        <div className="flex items-center gap-1.5 px-4 py-2.5 bg-[#f0ebe3]/90 border-b border-[#e8e2d9]">
+          <span className="w-3 h-3 rounded-full bg-[#ff5f57] shadow-sm" />
+          <span className="w-3 h-3 rounded-full bg-[#febc2e] shadow-sm" />
+          <span className="w-3 h-3 rounded-full bg-[#28c840] shadow-sm" />
+          <span className="ml-3 text-[10px] text-[#9a9490] font-mono">EdgeScore — Session</span>
+        </div>
+        <div className="p-6 space-y-5">
         {/* Card header */}
         <div className="space-y-2">
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#a08060]">
             Interview Question
           </p>
-          <Badge className="bg-[#e8d9c5] text-[#1f1f1f] border-0 text-xs">DSA</Badge>
+          <Badge className="bg-[#d9e8f5] text-[#1a3a5c] border-0 text-xs">System Design</Badge>
         </div>
 
         {/* Question text */}
         <p className="text-sm font-medium text-[#1f1f1f] leading-relaxed">
-          Explain the difference between arrays and linked lists.
+          Design a URL shortener like bit.ly. Walk me through your architecture.
         </p>
 
         {/* Recording indicator row */}
@@ -151,14 +158,35 @@ function InterviewCard() {
           ))}
         </div>
 
-        {/* AI analyzing badge */}
-        <div className="flex items-center gap-2">
-          <motion.span
-            className="h-2 w-2 shrink-0 rounded-full bg-[#a08060]"
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <span className="text-xs text-[#6b6b6b]">AI analyzing your response…</span>
+        {/* EdgeScore result bar */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#a08060]">
+              EdgeScore
+            </span>
+            <motion.span
+              className="text-sm font-bold text-[#1f1f1f] tabular-nums"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5, duration: 0.4 }}
+            >
+              84 / 100
+            </motion.span>
+          </div>
+          <div className="h-2 rounded-full bg-[#e8d9c5] overflow-hidden">
+            <motion.div
+              className="h-full rounded-full bg-[#a08060]"
+              initial={{ width: "0%" }}
+              animate={{ width: "84%" }}
+              transition={{ duration: 1.4, delay: 0.9, ease: "easeOut" }}
+            />
+          </div>
+          <div className="flex justify-between text-[10px] text-[#9a9490]">
+            <span>Clarity</span>
+            <span>Depth</span>
+            <span>Structure</span>
+          </div>
+        </div>
         </div>
       </motion.div>
     </motion.div>
@@ -211,17 +239,29 @@ function Hero() {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2"
           >
-            <Button asChild size="lg" variant="warm" className="px-8">
-              <Link href="/dashboard">Try Demo</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="px-8 border-[#e8e2d9] text-[#1f1f1f] bg-transparent hover:bg-[#f0ebe3]"
+            <motion.div
+              whileHover={{ y: -4, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 420, damping: 16 }}
             >
-              <Link href="#waitlist">Join Waitlist</Link>
-            </Button>
+              <Button asChild size="lg" variant="warm" className="px-8">
+                <Link href="/dashboard">Try Demo</Link>
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 420, damping: 16 }}
+            >
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="px-8 border-[#e8e2d9] text-[#1f1f1f] bg-transparent hover:bg-[#f0ebe3]"
+              >
+                <Link href="#waitlist">Join Waitlist</Link>
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -451,9 +491,9 @@ function DemoPreview() {
       >
         {/* Browser chrome */}
         <div className="bg-[#f0ebe3]/80 border-b border-[#e8e2d9] px-5 py-3 flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#f87171]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#fbbf24]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#4ade80]" />
+          <span className="w-3 h-3 rounded-full bg-[#ff5f57] shadow-sm" />
+          <span className="w-3 h-3 rounded-full bg-[#febc2e] shadow-sm" />
+          <span className="w-3 h-3 rounded-full bg-[#28c840] shadow-sm" />
           <div className="ml-4 flex-1 max-w-xs rounded-md bg-white/60 border border-[#e8e2d9] px-3 py-1">
             <span className="text-xs text-[#9a9490] font-mono">edgescore.app/dashboard/session</span>
           </div>
@@ -556,14 +596,20 @@ function WaitlistSection() {
               required
               className="flex-1 border-[#e8e2d9] bg-white/80 focus-visible:ring-[#d9c5ab] placeholder:text-[#b0a898] text-sm rounded-lg"
             />
-            <Button
-              type="submit"
-              disabled={status === "loading"}
-              variant="warm"
-              className="shrink-0 px-5"
+            <motion.div
+              whileHover={{ y: -3, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 420, damping: 16 }}
             >
-              {status === "loading" ? "Joining…" : "Join Waitlist"}
-            </Button>
+              <Button
+                type="submit"
+                disabled={status === "loading"}
+                variant="warm"
+                className="shrink-0 px-5"
+              >
+                {status === "loading" ? "Joining…" : "Join Waitlist"}
+              </Button>
+            </motion.div>
           </form>
         )}
 

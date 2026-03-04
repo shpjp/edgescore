@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Status = "idle" | "recording" | "stopped" | "uploading";
@@ -9,12 +10,37 @@ type Status = "idle" | "recording" | "stopped" | "uploading";
 export default function AudioRecorder({ sessionId }: { sessionId: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [elapsed, setElapsed] = useState(0);
 
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const audioBlob = useRef<Blob | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const router = useRouter();
+
+  // Tick the timer every second while recording
+  useEffect(() => {
+    if (status === "recording") {
+      setElapsed(0);
+      timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
+    } else {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [status]);
+
+  // Format seconds as mm:ss
+  function fmt(s: number) {
+    const m = Math.floor(s / 60).toString().padStart(2, "0");
+    const sec = (s % 60).toString().padStart(2, "0");
+    return `${m}:${sec}`;
+  }
 
   async function startRecording() {
     setError(null);
@@ -79,8 +105,9 @@ export default function AudioRecorder({ sessionId }: { sessionId: string }) {
 
         {status === "recording" && (
           <Button onClick={stopRecording} variant="destructive" size="sm">
-            <span className="w-2 h-2 rounded-full bg-white inline-block mr-1.5" />
+            <span className="w-2 h-2 rounded-full bg-white inline-block mr-1.5 animate-pulse" />
             Stop Recording
+            <span className="ml-2 font-mono text-xs tabular-nums opacity-90">{fmt(elapsed)}</span>
           </Button>
         )}
 
@@ -102,7 +129,10 @@ export default function AudioRecorder({ sessionId }: { sessionId: string }) {
         )}
 
         {status === "uploading" && (
-          <span className="text-sm text-[#6b6b6b]">Uploading…</span>
+          <span className="flex items-center gap-2 text-sm text-[#6b6b6b]">
+            <Loader2 className="h-4 w-4 animate-spin text-[#a08060]" />
+            Uploading…
+          </span>
         )}
       </div>
 

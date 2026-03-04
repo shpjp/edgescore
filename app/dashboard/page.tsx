@@ -44,7 +44,7 @@ export default async function DashboardPage() {
                 } recorded`}
           </p>
         </div>
-        <Button asChild size="sm" variant="warm">
+        <Button asChild size="sm" variant="warm" className="hover:-translate-y-0.5 hover:shadow-md transition-all duration-150">
           <Link href="/dashboard/new-session">+ New Session</Link>
         </Button>
       </div>

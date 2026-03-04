@@ -25,7 +25,7 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen bg-[#f7f3ed]">
       {/* Sticky beige navbar */}
-      <header className="sticky top-0 z-40 bg-[#f7f3ed]/80 backdrop-blur-md border-b border-[#e8e2d9] h-14 flex items-center px-6">
+      <header className="sticky top-0 z-40 bg-[#f7f3ed]/80 backdrop-blur-sm border-b border-[#e8e2d9] h-14 flex items-center px-6">
         <div className="w-full max-w-6xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link
