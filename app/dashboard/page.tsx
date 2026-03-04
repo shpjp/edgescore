@@ -11,11 +11,16 @@ export default async function DashboardPage() {
   // Layout already redirects unauthenticated users — session is guaranteed here
   const session = await getServerSession(authOptions);
 
+  // Double-check session exists (defensive programming)
+  if (!session?.user?.id) {
+    return <div>Loading...</div>;
+  }
+
   // Fetch this user's sessions, newest first
   const userSessions = await db
     .select()
     .from(sessions)
-    .where(eq(sessions.userId, session!.user.id))
+    .where(eq(sessions.userId, session.user.id))
     .orderBy(desc(sessions.createdAt));
 
   // Serialise dates before passing to the Client Component

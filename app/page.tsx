@@ -81,7 +81,7 @@ function Navbar() {
 
         {/* CTA */}
         <Button asChild size="sm" variant="warm" className="text-sm">
-          <Link href="/dashboard">Sign in</Link>
+          <Link href="/api/auth/signin?callbackUrl=/dashboard">Sign in</Link>
         </Button>
       </div>
     </header>
@@ -246,7 +246,7 @@ function Hero() {
               transition={{ type: "spring", stiffness: 420, damping: 16 }}
             >
               <Button asChild size="lg" variant="warm" className="px-8">
-                <Link href="/dashboard">Try Demo</Link>
+                <Link href="/api/auth/signin?callbackUrl=/dashboard">Try Demo</Link>
               </Button>
             </motion.div>
             <motion.div
