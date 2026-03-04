@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { authOptions } from "@/lib/auth";
 
 export default async function DashboardLayout({
@@ -9,37 +10,66 @@ export default async function DashboardLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  // Redirect before rendering anything — no HTML leaks to unauthenticated users
   if (!session) {
     redirect("/api/auth/signin");
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navbar — fixed height keeps the bar consistent regardless of content */}
-      <header className="bg-white border-b border-gray-200 h-14 flex items-center px-6">
-        <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
-          <span className="text-sm font-semibold tracking-tight text-gray-900">
-            EdgeScore
-          </span>
+  // Derive up-to-2 initials from display name or email for the avatar bubble
+  const initials = (session.user?.name ?? session.user?.email ?? "?")
+    .split(/[\s@.]/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part: string) => part[0].toUpperCase())
+    .join("");
 
-          <div className="flex items-center gap-5 text-sm">
-            <span className="text-gray-500 hidden sm:block">
-              {session.user.email}
-            </span>
-            {/* Neutral tone — sign-out is routine, not dangerous */}
-            <a
-              href="/api/auth/signout"
-              className="text-gray-500 hover:text-gray-900 transition-colors"
+  return (
+    <div className="min-h-screen bg-[#f7f3ed]">
+      {/* Sticky beige navbar */}
+      <header className="sticky top-0 z-40 bg-[#f7f3ed]/80 backdrop-blur-md border-b border-[#e8e2d9] h-14 flex items-center px-6">
+        <div className="w-full max-w-6xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="text-sm font-bold tracking-tight text-[#1f1f1f] hover:opacity-80 transition-opacity"
+          >
+            EdgeScore
+          </Link>
+
+          {/* Nav links + avatar */}
+          <div className="flex items-center gap-6 text-sm">
+            <Link
+              href="/dashboard"
+              className="text-[#6b6b6b] hover:text-[#1f1f1f] transition-colors duration-200 hidden sm:block"
             >
-              Sign out
-            </a>
+              Dashboard
+            </Link>
+            <Link
+              href="/dashboard/new-session"
+              className="text-[#6b6b6b] hover:text-[#1f1f1f] transition-colors duration-200 hidden sm:block"
+            >
+              New Session
+            </Link>
+
+            <div className="flex items-center gap-3">
+              {/* Avatar bubble */}
+              <div
+                className="w-7 h-7 rounded-full bg-[#e8d9c5] text-[#1f1f1f] flex items-center justify-center text-xs font-semibold select-none"
+                title={session.user?.email ?? ""}
+              >
+                {initials}
+              </div>
+              <a
+                href="/api/auth/signout"
+                className="text-[#6b6b6b] hover:text-[#1f1f1f] transition-colors duration-200 hidden sm:block"
+              >
+                Sign out
+              </a>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Constrained content area — prevents runaway line lengths on wide screens */}
-      <main className="max-w-5xl mx-auto px-6 py-8">{children}</main>
+      <main className="max-w-6xl mx-auto px-6 py-8">{children}</main>
     </div>
   );
 }

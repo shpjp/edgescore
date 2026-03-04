@@ -45,3 +45,6 @@ node_modules
 .env
 .env.local
 
+# uploaded files
+/public/uploads/*
+!public/uploads/.gitkeep
