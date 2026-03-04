@@ -8,6 +8,7 @@ import AudioRecorder from "@/components/AudioRecorder";
 import PageFade from "@/components/PageFade";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { FileText, Sparkles, Mic, Lightbulb, Users, Zap } from "lucide-react";
 
 const typeBadgeClass: Record<string, string> = {
   behavioral:    "bg-[#e8d9c5] text-[#1f1f1f] border-0",
@@ -119,6 +120,195 @@ export default async function SessionPage({
             </CardContent>
           </Card>
         )}
+
+        {/* ─── Placeholder: Transcript ─────────────────────────────────── */}
+        {!session.transcript && (
+          <Card className="bg-[#faf7f2] border border-dashed border-[#d4c9b8] shadow-none">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <FileText className="w-3.5 h-3.5 text-[#b8a898]" />
+                <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                  Transcript
+                </p>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-1.5">
+              <p className="text-sm text-[#9b8e81] leading-relaxed">
+                Your recorded answer will be automatically transcribed here.
+              </p>
+              <p className="text-xs text-[#b8a898]">
+                Speech-to-text processing coming soon.
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* ─── Placeholder: AI Interview Analysis ──────────────────────── */}
+        <Card className="bg-[#faf7f2] border border-dashed border-[#d4c9b8] shadow-none">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#b8a898]" />
+              <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                AI Interview Analysis
+              </p>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+
+            {/* Evaluation metric bars */}
+            <div className="space-y-4">
+              {[
+                "Clarity",
+                "Structure",
+                "Technical Depth",
+                "Confidence",
+                "Conciseness",
+              ].map((metric) => (
+                <div key={metric} className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-medium text-[#6b6b6b]">{metric}</span>
+                    <span className="text-xs text-[#b8a898] font-mono tracking-wide">— / 100</span>
+                  </div>
+                  <div className="h-1.5 bg-[#e8e2d9] rounded-full w-full" />
+                </div>
+              ))}
+            </div>
+
+            {/* Speech Delivery sub-section */}
+            <div className="border-t border-dashed border-[#d4c9b8] pt-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <Mic className="w-3.5 h-3.5 text-[#b8a898]" />
+                <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                  Speech Delivery
+                </p>
+              </div>
+              <div className="divide-y divide-[#f0ebe3]">
+                {[
+                  { label: "Speech Pace",      sub: "words per minute" },
+                  { label: "Pauses Detected",  sub: "" },
+                  { label: "Filler Words",      sub: "" },
+                  { label: "Confidence",        sub: "" },
+                  { label: "Tone Stability",    sub: "" },
+                ].map(({ label, sub }) => (
+                  <div
+                    key={label}
+                    className="flex justify-between items-center py-2"
+                  >
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-xs text-[#6b6b6b]">{label}</span>
+                      {sub && (
+                        <span className="text-[10px] text-[#c4b8ab]">({sub})</span>
+                      )}
+                    </div>
+                    <span className="text-xs text-[#b8a898] font-mono">—</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[11px] text-[#b8a898] pt-1">
+                Delivery metrics will be calculated from your audio.
+              </p>
+            </div>
+
+          </CardContent>
+        </Card>
+
+        {/* ─── Placeholder: What You Missed ────────────────────────────── */}
+        <Card className="bg-[#faf7f2] border border-dashed border-[#d4c9b8] shadow-none">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Lightbulb className="w-3.5 h-3.5 text-[#b8a898]" />
+              <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                What You Missed
+              </p>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-[#9b8e81] leading-relaxed">
+              AI will highlight important concepts missing from your answer.
+            </p>
+            <ul className="space-y-2 pt-1">
+              {["Concept 1", "Concept 2", "Concept 3"].map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-2.5 text-sm text-[#c4b8ab]"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d4c9b8] flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {/* ─── Placeholder: Peer Comparison ────────────────────────────── */}
+        <Card className="bg-[#faf7f2] border border-dashed border-[#d4c9b8] shadow-none">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Users className="w-3.5 h-3.5 text-[#b8a898]" />
+              <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                Peer Comparison
+              </p>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-[#9b8e81] leading-relaxed">
+              You performed better than{" "}
+              <span className="font-mono text-[#b8a898]">—%</span>{" "}
+              of candidates.
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { label: "Average Score",  value: "—" },
+                { label: "Top 10% Score",  value: "—" },
+                { label: "Your Rank",      value: "—" },
+              ].map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="bg-[#f2ede6] rounded-lg p-3 text-center border border-[#e8e2d9]"
+                >
+                  <p className="text-xl font-semibold text-[#9b8e81] font-mono leading-none">
+                    {value}
+                  </p>
+                  <p className="text-[10px] text-[#b8a898] mt-1.5 leading-snug">
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* ─── Placeholder: Advanced Insights ──────────────────────────── */}
+        <Card className="bg-[#faf7f2] border border-dashed border-[#d4c9b8] shadow-none">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-[#b8a898]" />
+              <p className="text-xs font-medium uppercase tracking-widest text-[#9b8e81]">
+                Advanced Insights
+              </p>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <ul className="space-y-3">
+              {[
+                "Answer Similarity Score",
+                "Interview Readiness Score",
+                "Answer Depth Analysis",
+                "Confidence Trend Over Time",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-sm text-[#9b8e81]">
+                  <span className="w-4 h-4 rounded border border-dashed border-[#d4c9b8] flex items-center justify-center flex-shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4c9b8]" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[11px] text-[#b8a898] pt-1 border-t border-dashed border-[#e8e2d9]">
+              Available in upcoming releases.
+            </p>
+          </CardContent>
+        </Card>
 
       </div>
     </PageFade>

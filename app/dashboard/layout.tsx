@@ -59,7 +59,7 @@ export default async function DashboardLayout({
                 {initials}
               </div>
               <a
-                href="/api/auth/signout"
+                href="/api/auth/signout?callbackUrl=/"
                 className="text-[#6b6b6b] hover:text-[#1f1f1f] transition-colors duration-200 hidden sm:block"
               >
                 Sign out
