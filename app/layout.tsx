@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://edgescore.app"),
   title: "EdgeScore — AI Interview Scoring",
   description:
     "Record your interview answers and get an instant EdgeScore. AI-powered transcription, structured feedback, and a real score — so every practice rep counts.",
